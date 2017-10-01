@@ -37,15 +37,20 @@ public class Main {
 
         float superd = 0;
         float superd95 = 0;
+        float superCId_lower = 0;
+        float superCId_upper = 0;
         float supert = 0;
         float supert95 = 0;
+        float superCIt_lower = 0;
+        float superCIt_upper = 0;
         float superp = 0;
+        float superCIp_lower = 0;
+        float superCIp_upper = 0;
 
         System.out.println("\n\n\t\tMean T\t\t95th of T\tCI of T\t\t\t\tMean D\t\t95th of D\tCI of D\t\t\t\tP\t\t\tCI of P");
-        finalString += "\n\nMean T\t95th of T\tMean D\t95th of D\tP";
-        finalString += "\n";
+        finalString += "\n\n\n\t\tMean T\t\t95th of T\tCI of T\t\t\t\tMean D\t\t95th of D\tCI of D\t\t\t\tP\t\t\tCI of P";
         System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-        finalString += "--------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+        finalString += "\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------";
         finalString += "\n";
 
         for (int i = 0; i < 7; i++){
@@ -62,7 +67,7 @@ public class Main {
             // CI end
             
             System.out.print("\nFor S = " + (11 + i));
-            finalString += "For S = " + (11 + i);
+            finalString += "\nFor S = " + (11 + i);
 //            finalString += "\n";
             
             statsD = new SummaryStatistics();
@@ -80,7 +85,7 @@ public class Main {
                 	// CI begin
                 statsD.addValue(current.d);
                 statsT.addValue(current.t);
-                statsP.addValue(current.p);
+                statsP.addValue(current.getP());
                 // CI end
 
 
@@ -108,8 +113,8 @@ public class Main {
             
             double ci3 = calcMeanCI(statsP, 0.95);
 //          System.out.println(String.format("Mean: %f", statsD.getMean()));
-          double lower3 = statsD.getMean() - ci3;
-          double upper3 = statsD.getMean() + ci3;
+          double lower3 = statsP.getMean() - ci3;
+          double upper3 = statsP.getMean() + ci3;
 //          System.out.println(String.format("Confidence Interval 95%%: %f, %f", lower2, upper2));
             //end of conf int
 
@@ -118,6 +123,14 @@ public class Main {
 //            finalString += "\t" + t/50 + "\t" + t95/50 + "\t" + d/50 + "\t" + d95/50 + "\t" + p/50;
             finalString += "\t" + decimalFormat.format(t/50) + "\t\t" + decimalFormat.format(t95/50) + "\t\t" + decimalFormat.format(lower) + " - " + decimalFormat.format(upper) + "\t\t" + decimalFormat.format(d/50) + "\t\t" + decimalFormat.format(d95/50) + "\t\t" +  decimalFormat.format(lower2) + " - " + decimalFormat.format(upper2) + "\t\t" + decimalFormat.format(p/50) + "\t\t" + decimalFormat.format(lower3) + " - " + decimalFormat.format(upper3);
 
+            superCIt_lower += (float) lower;
+            superCIt_upper += (float) upper;
+            superCId_lower += (float) lower2;
+            superCId_upper += (float) upper2;
+            superCIp_lower += (float) lower3;
+            superCIp_upper += (float) upper3;
+            
+        
         }
         
         System.out.println("\n\n");
@@ -129,15 +142,25 @@ public class Main {
         System.out.println("95th of T : " + supert95/7);
         finalString += "95th of T : " + supert95/7;
         finalString += "\n";
+        System.out.println("Mean of CI of T: " + superCIt_lower/7 + " - " + superCIt_upper/7);
+        finalString += "Mean of CI of T: " + superCIt_lower/7 + " - " + superCIt_upper/7;
+        finalString += "\n";
         System.out.println("Mean of D : " + superd/7);
         finalString += "Mean of D : " + superd/7;
         finalString += "\n";
         System.out.println("95th of D : " + superd95/7);
         finalString += "95th of D : " + superd95/7;
         finalString += "\n";
+        System.out.println("Mean of CI of D: " + superCId_lower/7 + " - " + superCId_upper/7);
+        finalString += "Mean of CI of D: " + superCIt_lower/7 + " - " + superCIt_upper/7;
+        finalString += "\n";
         System.out.println("Mean of P : " + superp/7);
         finalString += "Mean of P : " + superp/7;
         finalString += "\n";
+        System.out.println("Mean of CI of P: " + superCIp_lower/7 + " - " + superCIp_upper/7);
+        finalString += "Mean of CI of P: " + superCIp_lower/7 + " - " + superCIp_upper/7;
+        finalString += "\n";
+        
         System.out.println("\n\n");
 //        System.out.println("statsD: " + statsD);
 //        System.out.println("statsT: " + statsT.getVariance());        	
