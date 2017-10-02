@@ -56,7 +56,7 @@ public class JobTask {
     }
 
 
-    public static void begin(){
+    public void begin(){
         next_event();
     }
 
